@@ -259,9 +259,10 @@ var Epub = function (_Component) {
   }, {
     key: "_loadBook",
     value: function _loadBook(bookUrl) {
-      this.book = (0, _epubjs.default)(_objectSpread({
+      var options = this.props.options || {};
+      this.book = (0, _epubjs.default)(_objectSpread(_objectSpread({
         replacements: this.props.base64 || 'none'
-      }, bookOptionsExtras));
+      }, options), bookOptionsExtras));
       return this._openBook(bookUrl);
     }
   }, {
@@ -416,12 +417,13 @@ var Epub = function (_Component) {
         pagingEnabled: this.props.pagingEnabled,
         onNavigationStateChange: this.props.onNavigationStateChange,
         onShouldStartLoadWithRequest: this.props.onShouldStartLoadWithRequest,
-        isContentReady: this.props.isContentReady
+        isContentReady: this.props.isContentReady,
+        options: this.props.options
       }, this.props.webviewProps || {}, {
         __self: this,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 318,
+          lineNumber: 320,
           columnNumber: 7
         }
       }));

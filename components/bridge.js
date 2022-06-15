@@ -63,7 +63,8 @@ window.onerror = function (message, file, line, col, error) {
           {
             var url = decoded.args[0];
             var options = decoded.args.length > 1 && decoded.args[1];
-            openEpub(url, options);
+            var epubOptions = decoded.args.length > 2 && decoded.args[2];
+            openEpub(url, epubOptions, options);
 
             if (options && options.webviewStylesheet) {
               var head = document.getElementsByTagName('head')[0];
@@ -309,15 +310,15 @@ window.onerror = function (message, file, line, col, error) {
       }
     }
 
-    function openEpub(url, options) {
+    function openEpub(url, epubOptions, renderOptions) {
       var settings = (0, _extends2.default)({
         manager: 'continuous',
         overflow: 'visible',
         method: 'blobUrl',
         fullsize: true,
         snap: isChrome
-      }, options);
-      window.book = book = ePub(url);
+      }, renderOptions);
+      window.book = book = ePub(url, epubOptions);
       window.rendition = rendition = book.renderTo(document.body, settings);
       rendition.hooks.content.register(function (contents, rendition) {
         var doc = contents.document;
