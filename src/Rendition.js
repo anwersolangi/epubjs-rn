@@ -141,7 +141,7 @@ class Rendition extends Component {
       config.resizeOnOrientationChange = this.props.resizeOnOrientationChange;
     }
 
-    this.sendToBridge('open', [bookUrl, config]);
+    this.sendToBridge('open', [bookUrl, config, this.props.options]);
 
     this.display(this.props.display);
 

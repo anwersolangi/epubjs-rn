@@ -198,9 +198,11 @@ class Epub extends Component {
 
   _loadBook(bookUrl) {
     // console.log("loading book: ", bookUrl);
+    const options = this.props.options || {};
 
     this.book = ePub({
       replacements: this.props.base64 || 'none',
+      ...options,
       ...bookOptionsExtras,
     });
 
@@ -360,6 +362,7 @@ class Epub extends Component {
         onNavigationStateChange={this.props.onNavigationStateChange}
         onShouldStartLoadWithRequest={this.props.onShouldStartLoadWithRequest}
         isContentReady={this.props.isContentReady}
+        options={this.props.options}
         {...(this.props.webviewProps || {})}
       />
     );
