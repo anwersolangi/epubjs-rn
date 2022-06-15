@@ -7,12 +7,9 @@
   "scripts": {
     "start": "node EpubReader-broken/node_modules/react-native/local-cli/cli.js start",
     "contents": "webpack --config contents/webpack.config.js",
-    "build": "./node_modules/.bin/babel src/ -d components/ --delete-dir-on-start --compact false && cp -R ./src ./components/src/",
+    "build": "./node_modules/.bin/babel src/ -d components/ --delete-dir-on-start --compact false",
     "watch": "./node_modules/.bin/babel src/ -d components/ --compact false -w",
-    "local": "./node_modules/.bin/gulp watch",
-    "prepublish-only": "yarn build && yarn prettier-on-prod && cd ./EpubReader && yarn install",
-    "prettier-on-prod": "prettier --write ./components/src/* ./components/Epub.js ./components/index.js ./components/Streamer.js ./components/bridge.js ./components/Rendition.js",
-    "publish-it": "yarn prepublish-only && npm publish"
+    "local": "./node_modules/.bin/gulp watch"
   },
   "license": "BSD-2-Clause",
   "dependencies": {
