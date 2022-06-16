@@ -3310,7 +3310,7 @@ envinfo@^7.7.2:
 
 "epubjs@https://github.com/katerynapeikova/epub.js#rnReader":
   version "0.3.86"
-  resolved "https://github.com/katerynapeikova/epub.js#4e5eae709d499b0d02da639512dbdde4258dc57f"
+  resolved "https://github.com/katerynapeikova/epub.js#b830fa28cbc43c99445259a749f95cdd9e0a9e28"
   dependencies:
     "@types/jszip" "^3.4.1"
     "@types/localforage" "0.0.34"
