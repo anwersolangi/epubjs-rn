@@ -1,13 +1,13 @@
 import StaticServer from 'react-native-static-server';
 
-import RNFetchBlob from 'rn-fetch-blob';
+import ReactNativeBlobUtil from 'react-native-blob-util'
 
 import { unzip } from 'react-native-zip-archive';
 
-const Dirs = RNFetchBlob.fs.dirs;
+const Dirs = ReactNativeBlobUtil.fs.dirs;
 
 if (!global.Blob) {
-  global.Blob = RNFetchBlob.polyfill.Blob;
+  global.Blob = ReactNativeBlobUtil.polyfill.Blob;
 }
 
 const Uri = require('epubjs/lib/utils/url');
@@ -30,11 +30,11 @@ class EpubStreamer {
 
   setup() {
     // Add the directory
-    return RNFetchBlob.fs
+    return ReactNativeBlobUtil.fs
       .exists(`${Dirs.DocumentDir}/${this.root}`)
       .then((exists) => {
         if (!exists) {
-          return RNFetchBlob.fs.mkdir(`${Dirs.DocumentDir}/${this.root}`);
+          return ReactNativeBlobUtil.fs.mkdir(`${Dirs.DocumentDir}/${this.root}`);
         }
       })
       .then(() => {
@@ -76,7 +76,7 @@ class EpubStreamer {
     // let uri = new Uri(bookUrl);
     const filename = this.filename(bookUrl);
 
-    return RNFetchBlob.config({
+    return ReactNativeBlobUtil.config({
       fileCache: true,
       path: Dirs.DocumentDir + '/' + filename,
     })
@@ -102,7 +102,7 @@ class EpubStreamer {
     const filename = this.filename(bookUrl);
     const targetPath = `${Dirs.DocumentDir}/${this.root}/${filename}`;
 
-    return RNFetchBlob.fs.exists(targetPath);
+    return ReactNativeBlobUtil.fs.exists(targetPath);
   }
 
   get(bookUrl) {
@@ -129,7 +129,7 @@ class EpubStreamer {
   }
 
   remove(path) {
-    return RNFetchBlob.fs
+    return ReactNativeBlobUtil.fs
       .lstat(path)
       .then((stats) => {
         const index = this.paths.indexOf(path);

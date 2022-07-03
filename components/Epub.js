@@ -23,9 +23,7 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactNative = require("react-native");
 
-var _reactNativeOrientation = _interopRequireDefault(require("@lightbase/react-native-orientation"));
-
-var _rnFetchBlob = _interopRequireDefault(require("rn-fetch-blob"));
+var _rnBlobUtil = _interopRequireDefault(require("react-native-blob-util"));
 
 var _asyncStorage = _interopRequireDefault(require("@react-native-async-storage/async-storage"));
 
@@ -55,7 +53,7 @@ var defaultContentInset = {
 };
 
 if (!global.Blob) {
-  global.Blob = _rnFetchBlob.default.polyfill.Blob;
+  global.Blob = _rnBlobUtil.default.polyfill.Blob;
 }
 
 global.JSZip = global.JSZip || require('jszip');
@@ -106,27 +104,7 @@ var Epub = function (_Component) {
       this.active = true;
       this._isMounted = true;
 
-      _reactNative.AppState.addEventListener('change', this._handleAppStateChange.bind(this));
-
-      _reactNativeOrientation.default.addSpecificOrientationListener(this._orientationDidChange.bind(this));
-
-      var orientation = _reactNativeOrientation.default.getInitialOrientation();
-
-      if (orientation && (orientation === 'PORTRAITUPSIDEDOWN' || orientation === 'UNKNOWN')) {
-        orientation = 'PORTRAIT';
-        this.setState({
-          orientation: orientation
-        });
-      } else if (orientation) {
-        this.setState({
-          orientation: orientation
-        });
-      } else if (orientation === null) {
-        orientation = this.state.width > this.state.height ? 'LANDSCAPE' : 'PORTRAIT';
-        this.setState({
-          orientation: orientation
-        });
-      }
+      this.changeListener = _reactNative.AppState.addEventListener('change', this._handleAppStateChange.bind(this));
 
       if (this.props.src) {
         this._loadBook(this.props.src);
@@ -137,11 +115,7 @@ var Epub = function (_Component) {
     value: function componentWillUnmount() {
       this._isMounted = false;
 
-      _reactNative.AppState.removeEventListener('change', this._handleAppStateChange);
-
-      _reactNativeOrientation.default.removeSpecificOrientationListener(this._orientationDidChange);
-
-      clearTimeout(this.orientationTimeout);
+      this.changeListener.remove();
       this.streamer.kill();
       this.destroy();
     }
@@ -188,10 +162,6 @@ var Epub = function (_Component) {
         return true;
       }
 
-      if (nextProps.orientation != this.props.orientation) {
-        return true;
-      }
-
       if (nextProps.src != this.props.src) {
         return true;
       }
@@ -225,36 +195,7 @@ var Epub = function (_Component) {
         this.destroy();
 
         this._loadBook(this.props.src);
-      } else if (prevProps.orientation !== this.props.orientation) {
-        _orientationDidChange(this.props.orientation);
       }
-    }
-  }, {
-    key: "_orientationDidChange",
-    value: function _orientationDidChange(orientation) {
-      var wait = 10;
-      var _orientation = orientation;
-
-      if (!this.active || !this._isMounted) {
-        return;
-      }
-
-      if (orientation === 'PORTRAITUPSIDEDOWN' || orientation === 'UNKNOWN') {
-        _orientation = 'PORTRAIT';
-      }
-
-      if (orientation === 'LANDSCAPE-RIGHT' || orientation === 'LANDSCAPE-LEFT') {
-        _orientation = 'LANDSCAPE';
-      }
-
-      if (this.state.orientation === _orientation) {
-        return;
-      }
-
-      this.setState({
-        orientation: _orientation
-      });
-      this.props.onOrientationChanged && this.props.onOrientationChanged(_orientation);
     }
   }, {
     key: "_loadBook",
@@ -410,7 +351,6 @@ var Epub = function (_Component) {
         width: this.props.width,
         height: this.props.height,
         scalesPageToFit: this.props.scalesPageToFit,
-        resizeOnOrientationChange: this.props.resizeOnOrientationChange,
         showsHorizontalScrollIndicator: this.props.showsHorizontalScrollIndicator,
         showsVerticalScrollIndicator: this.props.showsVerticalScrollIndicator,
         scrollEnabled: this.props.scrollEnabled,
@@ -432,37 +372,6 @@ var Epub = function (_Component) {
   return Epub;
 }(_react.Component);
 
-var defaultBackgroundColor = '#FEFEFE';
-
-var styles = _reactNative.StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column'
-  },
-  manager: {
-    flex: 1
-  },
-  scrollContainer: {
-    flex: 1,
-    marginTop: 0,
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    backgroundColor: defaultBackgroundColor
-  },
-  rowContainer: {
-    flex: 1
-  },
-  loadScreen: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: defaultBackgroundColor,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
 
 var _default = Epub;
 exports.default = _default;

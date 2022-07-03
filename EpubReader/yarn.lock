@@ -891,20 +891,6 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@lightbase/react-native-orientation@3.2.6":
-  version "3.2.6"
-  resolved "https://registry.yarnpkg.com/@lightbase/react-native-orientation/-/react-native-orientation-3.2.6.tgz#92cf464115981925bd9c4bba19f91b5cf03a9d2d"
-  integrity sha512-Arq3mRjIxpEkisHbH2I/TwD2uzIjeOW+thX0RWTlOceqAlgqr6GW66ua2xpKF/M3px6jMt5ZKVgGpCt+I1r0Jg==
-  dependencies:
-    cuid "^2.1.6"
-
-"@react-native-community/async-storage@1.10.1":
-  version "1.10.1"
-  resolved "https://registry.yarnpkg.com/@react-native-community/async-storage/-/async-storage-1.10.1.tgz#23902625cf146a25b2929d72558caa437c72c4a8"
-  integrity sha512-9wjW4lNAKkNgeQtj4dG2graKoJoiAELvh6QDXZ55ld5J58kOfJIe6ELaGBUtIAoXPpmjsddjpXrfV6af3mN2JA==
-  dependencies:
-    deep-assign "^3.0.0"
-
 "@react-native-community/cli-debugger-ui@^4.13.1":
   version "4.13.1"
   resolved "https://registry.yarnpkg.com/@react-native-community/cli-debugger-ui/-/cli-debugger-ui-4.13.1.tgz#07de6d4dab80ec49231de1f1fbf658b4ad39b32c"
@@ -2221,8 +2207,6 @@ envinfo@^7.7.2:
   resolved "file:./epubjs-rn.tgz#0d4eafd2c368734750d378349cd67a0ef415c5c6"
   dependencies:
     "@babel/polyfill" "7.8.7"
-    "@lightbase/react-native-orientation" "3.2.6"
-    "@react-native-community/async-storage" "1.10.1"
     base-64 "0.1.0"
     buffer "5.6.0"
     epubjs "0.3.86"

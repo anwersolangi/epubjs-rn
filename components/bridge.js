@@ -2,7 +2,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
-window.onerror = function (message, file, line, col, error) {
+window.onerror = function (message) {
   var msg = JSON.stringify({
     method: 'error',
     value: message

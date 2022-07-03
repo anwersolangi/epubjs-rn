@@ -11,14 +11,14 @@ var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/creat
 
 var _reactNativeStaticServer = _interopRequireDefault(require("react-native-static-server"));
 
-var _rnFetchBlob = _interopRequireDefault(require("rn-fetch-blob"));
+var _rnBlobUtil = _interopRequireDefault(require("react-native-blob-util"));
 
 var _reactNativeZipArchive = require("react-native-zip-archive");
 
-var Dirs = _rnFetchBlob.default.fs.dirs;
+var Dirs = _rnBlobUtil.default.fs.dirs;
 
 if (!global.Blob) {
-  global.Blob = _rnFetchBlob.default.polyfill.Blob;
+  global.Blob = _rnBlobUtil.default.polyfill.Blob;
 }
 
 var Uri = require('epubjs/lib/utils/url');
@@ -42,9 +42,9 @@ var EpubStreamer = function () {
     value: function setup() {
       var _this = this;
 
-      return _rnFetchBlob.default.fs.exists(Dirs.DocumentDir + "/" + this.root).then(function (exists) {
+      return _rnBlobUtil.default.fs.exists(Dirs.DocumentDir + "/" + this.root).then(function (exists) {
         if (!exists) {
-          return _rnFetchBlob.default.fs.mkdir(Dirs.DocumentDir + "/" + _this.root);
+          return _rnBlobUtil.default.fs.mkdir(Dirs.DocumentDir + "/" + _this.root);
         }
       }).then(function () {
         return new _reactNativeStaticServer.default(_this.port, _this.root, {
@@ -92,7 +92,7 @@ var EpubStreamer = function () {
       var _this3 = this;
 
       var filename = this.filename(bookUrl);
-      return _rnFetchBlob.default.config({
+      return _rnBlobUtil.default.config({
         fileCache: true,
         path: Dirs.DocumentDir + '/' + filename
       }).fetch('GET', bookUrl).then(function (res) {
@@ -115,7 +115,7 @@ var EpubStreamer = function () {
     value: function check(bookUrl) {
       var filename = this.filename(bookUrl);
       var targetPath = Dirs.DocumentDir + "/" + this.root + "/" + filename;
-      return _rnFetchBlob.default.fs.exists(targetPath);
+      return _rnBlobUtil.default.fs.exists(targetPath);
     }
   }, {
     key: "get",
@@ -152,7 +152,7 @@ var EpubStreamer = function () {
     value: function remove(path) {
       var _this5 = this;
 
-      return _rnFetchBlob.default.fs.lstat(path).then(function (stats) {
+      return _rnBlobUtil.default.fs.lstat(path).then(function (stats) {
         var index = _this5.paths.indexOf(path);
 
         _this5.paths.splice(index, 1);

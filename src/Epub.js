@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 
-import { StyleSheet, Dimensions, AppState } from 'react-native';
+import { Dimensions, AppState } from 'react-native';
 
-import Orientation from '@lightbase/react-native-orientation';
-
-import RNFetchBlob from 'rn-fetch-blob';
+import ReactNativeBlobUtil  from "react-native-blob-util";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const defaultContentInset = { top: 0, bottom: 32 };
 
 if (!global.Blob) {
-  global.Blob = RNFetchBlob.polyfill.Blob;
+  global.Blob = ReactNativeBlobUtil .polyfill.Blob;
 }
 
 global.JSZip = global.JSZip || require('jszip');
@@ -55,21 +53,7 @@ class Epub extends Component {
   componentDidMount() {
     this.active = true;
     this._isMounted = true;
-    AppState.addEventListener('change', this._handleAppStateChange.bind(this));
-
-    Orientation.addSpecificOrientationListener(this._orientationDidChange.bind(this));
-    let orientation = Orientation.getInitialOrientation();
-    if (orientation && (orientation === 'PORTRAITUPSIDEDOWN' || orientation === 'UNKNOWN')) {
-      orientation = 'PORTRAIT';
-      this.setState({ orientation });
-    } else if (orientation) {
-      this.setState({ orientation });
-    } else if (orientation === null) {
-      // Android starts as null
-      orientation = this.state.width > this.state.height ? 'LANDSCAPE' : 'PORTRAIT';
-      this.setState({ orientation });
-    }
-    // console.log("inital orientation", orientation, this.state.width, this.state.height)
+    this.changeListener =  AppState.addEventListener('change', this._handleAppStateChange.bind(this));
 
     if (this.props.src) {
       this._loadBook(this.props.src);
@@ -79,9 +63,7 @@ class Epub extends Component {
   componentWillUnmount() {
     this._isMounted = false;
 
-    AppState.removeEventListener('change', this._handleAppStateChange);
-    Orientation.removeSpecificOrientationListener(this._orientationDidChange);
-    clearTimeout(this.orientationTimeout);
+    this.changeListener.remove();
 
     this.streamer.kill();
 
@@ -129,10 +111,6 @@ class Epub extends Component {
       return true;
     }
 
-    if (nextProps.orientation != this.props.orientation) {
-      return true;
-    }
-
     if (nextProps.src != this.props.src) {
       return true;
     }
@@ -167,33 +145,6 @@ class Epub extends Component {
     } else if (prevProps.orientation !== this.props.orientation) {
       _orientationDidChange(this.props.orientation);
     }
-  }
-
-  // LANDSCAPE PORTRAIT UNKNOWN PORTRAITUPSIDEDOWN
-  _orientationDidChange(orientation) {
-    let wait = 10;
-    let _orientation = orientation;
-
-    if (!this.active || !this._isMounted) {
-      return;
-    }
-
-    if (orientation === 'PORTRAITUPSIDEDOWN' || orientation === 'UNKNOWN') {
-      _orientation = 'PORTRAIT';
-    }
-
-    if (orientation === 'LANDSCAPE-RIGHT' || orientation === 'LANDSCAPE-LEFT') {
-      _orientation = 'LANDSCAPE';
-    }
-
-    if (this.state.orientation === _orientation) {
-      return;
-    }
-
-    // console.log("orientation", _orientation);
-
-    this.setState({ orientation: _orientation });
-    this.props.onOrientationChanged && this.props.onOrientationChanged(_orientation);
   }
 
   _loadBook(bookUrl) {
@@ -354,7 +305,6 @@ class Epub extends Component {
         width={this.props.width}
         height={this.props.height}
         scalesPageToFit={this.props.scalesPageToFit}
-        resizeOnOrientationChange={this.props.resizeOnOrientationChange}
         showsHorizontalScrollIndicator={this.props.showsHorizontalScrollIndicator}
         showsVerticalScrollIndicator={this.props.showsVerticalScrollIndicator}
         scrollEnabled={this.props.scrollEnabled}
@@ -368,37 +318,5 @@ class Epub extends Component {
     );
   }
 }
-
-const defaultBackgroundColor = '#FEFEFE';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  manager: {
-    flex: 1,
-  },
-  scrollContainer: {
-    flex: 1,
-    marginTop: 0,
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    backgroundColor: defaultBackgroundColor,
-  },
-  rowContainer: {
-    flex: 1,
-  },
-  loadScreen: {
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: defaultBackgroundColor,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
 
 export default Epub;

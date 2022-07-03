@@ -1,4 +1,4 @@
-window.onerror = function (message, file, line, col, error) {
+window.onerror = function (message) {
   var msg = JSON.stringify({ method: 'error', value: message });
   window.postMessage(msg, '*');
 };

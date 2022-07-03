@@ -1,7 +1,7 @@
 {
-  "name": "@sbrighiu/epubjs-rn",
-  "version": "0.3.21",
-  "repository": "https://github.com/sbrighiu/epubjs-rn",
+  "name": "@anwersolangi/epubjs-rn",
+  "version": "0.1.1",
+  "repository": "https://github.com/anwersolangi/epubjs-rn",
   "main": "./components/index.js",
   "private": false,
   "scripts": {
@@ -30,14 +30,13 @@
     "util": "0.12.3"
   },
   "peerDependencies": {
-    "@lightbase/react-native-orientation": "3.2.6",
     "@react-native-async-storage/async-storage": "^1.17.6",
     "react": "*",
     "react-native": "*",
     "react-native-static-server": "0.5.0",
     "react-native-webview": "11.22.4",
     "react-native-zip-archive": "5.0.2",
-    "rn-fetch-blob": "0.12.0"
+    "react-native-blob-util": "0.16.2"
   },
   "devDependencies": {
     "@babel/cli": "7.8.4",

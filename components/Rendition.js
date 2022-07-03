@@ -89,8 +89,6 @@ var Rendition = function (_Component) {
         this.display(this.props.display);
       }
 
-      if (prevProps.orientation !== this.props.orientation) {}
-
       if (prevProps.flow !== this.props.flow) {
         this.flow(this.props.flow || 'paginated');
       }
@@ -147,10 +145,6 @@ var Rendition = function (_Component) {
 
       if (this.props.height) {
         config.height = this.props.height;
-      }
-
-      if (this.props.disableOrientationEvent) {
-        config.resizeOnOrientationChange = this.props.resizeOnOrientationChange;
       }
 
       this.sendToBridge('open', [bookUrl, config, this.props.options]);

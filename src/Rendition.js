@@ -74,10 +74,6 @@ class Rendition extends Component {
       this.display(this.props.display);
     }
 
-    if (prevProps.orientation !== this.props.orientation) {
-      // this.setState({ loaded: false });
-    }
-
     if (prevProps.flow !== this.props.flow) {
       this.flow(this.props.flow || 'paginated');
     }
@@ -135,10 +131,6 @@ class Rendition extends Component {
 
     if (this.props.height) {
       config.height = this.props.height;
-    }
-
-    if (this.props.disableOrientationEvent) {
-      config.resizeOnOrientationChange = this.props.resizeOnOrientationChange;
     }
 
     this.sendToBridge('open', [bookUrl, config, this.props.options]);
