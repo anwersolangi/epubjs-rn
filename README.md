@@ -14,15 +14,15 @@ Getting Started
 To use the components in your own app install via npm or yarn
 
 ```bash
-yarn add @sbrighiu/epubjs-rn
+yarn add @anwersolangi/epubjs-rn
 or
-npm install --save @sbrighiu/epubjs-rn
+npm install --save @anwersolangi/epubjs-rn
 ```
 
 then require the default reader
 
 ```
-import EpubReader, { blockTextSelectionThemesObject, blockTextSelectionName } from '@sbrighiu/epubjs-rn';
+import EpubReader, { blockTextSelectionThemesObject, blockTextSelectionName } from '@anwersolangi/epubjs-rn';
 ```
 
 then you can add the reader element in your code:
@@ -50,7 +50,7 @@ then you can add the reader element in your code:
 or you can go the original route and require the `components` you need
 
 ```
-import { Epub } from '@sbrighiu/epubjs-rn';
+import { Epub } from '@anwersolangi/epubjs-rn';
 ```
 
 then you can add the reader element in your code:
@@ -91,7 +91,7 @@ you will want to use the `Streamer` class to manage the files and start a [Stati
 An example of this method is provided in the example app.
 
 ```
-import { Epub, Streamer } from "@sbrighiu/epubjs-rn";
+import { Epub, Streamer } from "@anwersolangi/epubjs-rn";
 let streamer = new Streamer();
 
 streamer.start("8899")
@@ -127,9 +127,13 @@ Other
 -------------------------
 If React Native version is <0.60, link the required libraries with
 ```bash
-react-native link react-native-static-server && react-native link react-native-webview && react-native link react-native-zip-archive && RNFB_ANDROID_PERMISSIONS=true react-native link rn-fetch-blob && react-native link @react-native-community/async-storage
+react-native link react-native-static-server && react-native link react-native-webview && react-native link react-native-zip-archive
 ```
 
 Trademark
 -------------------------
 EPUB is a registered trademark of the [IDPF](http://idpf.org/).
+
+Disclaimers
+-------------------------
+This is forked from the @sbrighiu/epubjs-rn, and all the codes and its copyrights are to @sbrighiu/epubjs-rn and futurepress, this is only created to make the codes stable for react native 0.67
