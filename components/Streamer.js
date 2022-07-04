@@ -9,7 +9,7 @@ var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/cl
 
 var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
 
-var _reactNativeStaticServer = _interopRequireDefault(require("react-native-static-server"));
+var _reactNativeStaticServer = _interopRequireDefault(require("@dr.pogodin/react-native-static-server"));
 
 var _rnBlobUtil = _interopRequireDefault(require("react-native-blob-util"));
 

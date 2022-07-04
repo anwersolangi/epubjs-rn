@@ -1,4 +1,4 @@
-import StaticServer from 'react-native-static-server';
+import StaticServer from '@dr.pogodin/react-native-static-server';
 
 import ReactNativeBlobUtil from 'react-native-blob-util'
 

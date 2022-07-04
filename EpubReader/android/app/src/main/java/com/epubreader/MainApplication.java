@@ -6,8 +6,6 @@ import com.facebook.react.ReactApplication;
 import com.rnziparchive.RNZipArchivePackage;
 import com.reactnativecommunity.slider.ReactSliderPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
-import com.futurepress.staticserver.FPStaticServerPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;

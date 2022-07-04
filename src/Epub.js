@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const defaultContentInset = { top: 0, bottom: 32 };
 
 if (!global.Blob) {
-  global.Blob = ReactNativeBlobUtil .polyfill.Blob;
+  global.Blob = ReactNativeBlobUtil.polyfill.Blob;
 }
 
 global.JSZip = global.JSZip || require('jszip');
