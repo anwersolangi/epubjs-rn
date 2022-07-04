@@ -1,22 +1,25 @@
 {
   "name": "@anwersolangi/epubjs-rn",
   "version": "0.1.1",
-  "repository": "git://github.com/anwersolangi/epubjs-rn",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anwersolangi/epubjs-rn.git"
+  },
   "main": "./components/index.js",
   "private": false,
   "scripts": {
     "start": "node EpubReader-broken/node_modules/react-native/local-cli/cli.js start",
     "contents": "webpack --config contents/webpack.config.js",
-    "build": "./node_modules/.bin/babel src/ -d components/ --delete-dir-on-start --compact false",
-    "watch": "./node_modules/.bin/babel src/ -d components/ --compact false -w",
-    "local": "./node_modules/.bin/gulp watch"
+    "build": "babel src/ -d components/ --delete-dir-on-start --compact false",
+    "watch": "babel src/ -d components/ --compact false -w",
+    "local": "gulp watch"
   },
   "license": "BSD-2-Clause",
   "dependencies": {
     "@babel/polyfill": "7.8.7",
     "base-64": "0.1.0",
     "buffer": "5.6.0",
-    "epubjs": "https://github.com/katerynapeikova/epub.js#rnReader",
+    "epubjs": "git+https://github.com/katerynapeikova/epub.js.git#rnReader",
     "event-emitter": "^0.3.5",
     "events": "3.1.0",
     "i": "0.3.6",
@@ -68,5 +71,16 @@
     "components",
     "package.json",
     "epubjs-rn.podspec"
-  ]
+  ],
+  "description": "Extra documentation ===================",
+  "bugs": {
+    "url": "https://github.com/anwersolangi/epubjs-rn/issues"
+  },
+  "homepage": "https://github.com/anwersolangi/epubjs-rn#readme",
+  "keywords": [
+    "epubjs-rn",
+    "epubjs",
+    "reactnative"
+  ],
+  "author": "Anwer Solangi"
 }
